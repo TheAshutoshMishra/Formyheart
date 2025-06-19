@@ -10,6 +10,7 @@
       height: 100%;
       overflow: hidden;
       font-family: cursive;
+      background-color: black;
     }
 
     .bg_heart {
@@ -49,11 +50,6 @@
       transform: scale(1.05);
     }
 
-    .profile h2 {
-      font-size: 24px;
-      margin-top: 12px;
-    }
-
     .heart {
       position: absolute;
       top: -50%;
@@ -80,12 +76,6 @@
     #text1 {
       font-size: 22px;
       text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #ff69b4; }
-      to { text-shadow: 0 0 20px #ff1493; }
     }
 
     #response-buttons {
@@ -103,7 +93,6 @@
       font-family: cursive;
       cursor: pointer;
       transition: 0.3s;
-      animation: pulse 2s infinite;
     }
 
     .yes {
@@ -126,11 +115,6 @@
       to { opacity: 1; }
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
     audio {
       display: none;
     }
@@ -144,12 +128,12 @@
     <div class="profile">
       <img src="profile3.jpg" alt="Profile" class="circular-image" />
     </div>
-    <h2>Ashutosh Mishra</h2>
+    <h2 style="margin-top: 10px;">Ashutosh Mishra</h2>
     <h2 id="text1"></h2>
 
     <div id="response-buttons">
       <button class="yes" onclick="sheSaidYes()">❤️ Yes, I feel the same!</button>
-      <button class="no" onclick="sheSaidNo()">💔 Sorry, I don’t...</button>
+      <button class="no" onclick="sheSaidNo()">🌸 I need more time</button>
     </div>
   </div>
 
@@ -164,19 +148,22 @@
       confetti();
       alert("You said YES 😍\nYou just made Ashutosh's day 💖");
 
-      // WhatsApp auto message
-      const whatsappNumber = "918090147505";
+      const number = "918090147505";
       const message = "Hi Ashutosh, I feel the same ❤️";
-      const encodedMessage = encodeURIComponent(message);
-      const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
+      const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
       setTimeout(() => {
-        window.open(whatsappLink, '_blank');
+        window.open(url, '_blank');
       }, 1000);
     }
 
     function sheSaidNo() {
-      alert("You said NO 💔\nBut thank you for reading honestly.");
+      alert("It’s okay 🌸\nThanks for reading it all. You mean a lot.");
+      const number = "918090147505";
+      const message = "Hi Ashutosh, I really respect your feelings. Let’s talk sometime 🌸";
+      const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+      setTimeout(() => {
+        window.open(url, '_blank');
+      }, 1000);
     }
 
     // Floating Hearts
@@ -210,21 +197,20 @@
       }, (r_time + 5) * 1000 + 1000);
     }, 500);
 
-    // Typewriter Text
+    // Romantic Typewriter Text
     const lines = [
       "Hi Chitranshii.....!",
       "Now I want to say something special to you.",
-      "So, please read everything carefully...!",
-      "When I saw you for the first time, you seemed special to me.",
-      "As the days passed, you got closer to me....!",
-      "I don't know why your thoughts always stay in my mind...!",
-      "Everything about you is always interesting for me...!",
-      "I am nervous, because I’ve never said these words to anyone.",
-      "And I won't say them to anyone else in the future.",
-      "I love my parents more than anything else in this world....!",
-      "But now... you’re the only person I love equally with them....!",
-      "I Love U ❤️ Sweetheart.....!",
-      "Give me one chance to prove my love...!"
+      "Please read everything carefully...!",
+      "When I saw you for the first time, you seemed so special to me.",
+      "As days passed, you kept getting closer to my heart....!",
+      "Your thoughts stay in my mind all the time...!",
+      "Everything about you is fascinating to me...!",
+      "I’m nervous, because I’ve never said these words to anyone...",
+      "I love my parents more than anything in this world.",
+      "Now... you're the only person I love just as much ❤️",
+      "I Love You Sweetheart 💖",
+      "Please give me just one chance to prove it...!"
     ];
 
     let i = 0;
@@ -232,7 +218,7 @@
       if (i < lines.length) {
         $('#text1').fadeOut(600, function() {
           $(this).html(lines[i++]).fadeIn(600, function() {
-            setTimeout(typeWriter, 2200);
+            setTimeout(typeWriter, 2500);
           });
         });
       } else {

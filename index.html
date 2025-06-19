@@ -10,7 +10,6 @@
       height: 100%;
       overflow: hidden;
       font-family: cursive;
-      background-color: black;
     }
 
     .bg_heart {
@@ -19,6 +18,8 @@
       width: 100%; height: 100%;
       background-image: url("https://i.pinimg.com/originals/51/d8/37/51d8374126446d495348b6032202126f.jpg");
       background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       z-index: -2;
     }
 
@@ -76,6 +77,7 @@
     #text1 {
       font-size: 22px;
       text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+      margin-top: 20px;
     }
 
     #response-buttons {
@@ -115,8 +117,19 @@
       to { opacity: 1; }
     }
 
-    audio {
-      display: none;
+    .music-toggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      padding: 10px 20px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid white;
+      border-radius: 30px;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
     }
   </style>
 </head>
@@ -124,10 +137,10 @@
 
   <div class="bg_heart"></div>
 
+  <div class="music-toggle" onclick="toggleMusic()">🎵 Tap to Play / Pause Music</div>
+
   <div class="container">
-    <div class="profile">
-      <img src="profile3.jpg" alt="Profile" class="circular-image" />
-    </div>
+    <img src="profile3.jpg" alt="Profile" class="circular-image" />
     <h2 style="margin-top: 10px;">Ashutosh Mishra</h2>
     <h2 id="text1"></h2>
 
@@ -137,37 +150,38 @@
     </div>
   </div>
 
-  <audio autoplay loop>
+  <audio id="bgMusic" loop>
     <source src="https://dl.sndup.net/ybqt/kaun_tujhe.mp3" type="audio/mpeg">
   </audio>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
   <script>
+    const bgMusic = document.getElementById("bgMusic");
+
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play();
+      } else {
+        bgMusic.pause();
+      }
+    }
+
     function sheSaidYes() {
       confetti();
-      alert("You said YES 😍\nYou just made Ashutosh's day 💖");
-
-      const number = "918090147505";
+      alert("You said YES 😍 You just made Ashutosh's day 💖");
       const message = "Hi Ashutosh, I feel the same ❤️";
-      const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-      setTimeout(() => {
-        window.open(url, '_blank');
-      }, 1000);
+      window.open(`https://wa.me/918090147505?text=${encodeURIComponent(message)}`, '_blank');
     }
 
     function sheSaidNo() {
-      alert("It’s okay 🌸\nThanks for reading it all. You mean a lot.");
-      const number = "918090147505";
-      const message = "Hi Ashutosh, I really respect your feelings. Let’s talk sometime 🌸";
-      const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-      setTimeout(() => {
-        window.open(url, '_blank');
-      }, 1000);
+      alert("It’s okay 🌸 Thank you for reading with so much care.");
+      const message = "Hi Ashutosh, I truly value your feelings. I need some more time 🌸";
+      window.open(`https://wa.me/918090147505?text=${encodeURIComponent(message)}`, '_blank');
     }
 
     // Floating Hearts
-    setInterval(function(){
+    setInterval(() => {
       const r_num = Math.floor(Math.random() * 40) + 1;
       const r_size = Math.floor(Math.random() * 65) + 10;
       const r_left = Math.floor(Math.random() * 100) + 1;
@@ -197,7 +211,7 @@
       }, (r_time + 5) * 1000 + 1000);
     }, 500);
 
-    // Romantic Typewriter Text
+    // Typewriter lines
     const lines = [
       "Hi Chitranshii.....!",
       "Now I want to say something special to you.",
@@ -216,8 +230,8 @@
     let i = 0;
     function typeWriter() {
       if (i < lines.length) {
-        $('#text1').fadeOut(600, function() {
-          $(this).html(lines[i++]).fadeIn(600, function() {
+        $('#text1').fadeOut(600, function () {
+          $(this).html(lines[i++]).fadeIn(600, function () {
             setTimeout(typeWriter, 2500);
           });
         });
@@ -226,7 +240,10 @@
       }
     }
 
-    $(document).ready(typeWriter);
+    $(document).ready(() => {
+      bgMusic.muted = false;
+      typeWriter();
+    });
   </script>
 </body>
 </html>
